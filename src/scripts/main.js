@@ -5,6 +5,30 @@ const tbody = document.querySelector('tbody');
 const headers = document.querySelectorAll('th');
 const body = document.querySelector('body');
 
+function showNotification(message, type = 'success') {
+  const notification = document.createElement('div');
+
+  notification.classList.add('notification', type);
+  notification.setAttribute('data-qa', 'notification');
+
+  const title = document.createElement('span');
+
+  title.classList.add('title');
+  title.textContent = type === 'success' ? 'Success' : 'Error';
+
+  const text = document.createElement('span');
+
+  text.textContent = message;
+
+  notification.appendChild(title);
+  notification.appendChild(text);
+
+  document.body.appendChild(notification);
+
+  setTimeout(() => {
+    notification.remove();
+  }, 3000);
+}
 // #endregion
 
 // #region clickSort
@@ -78,9 +102,9 @@ form.addEventListener('submit', (e) => {
   const formData = new FormData(form);
   const namee = formData.get('name').trim();
   const position = formData.get('position').trim();
-  const age = Number(formData.get('age'));
-  const salary = Number(formData.get('salary'));
-  const office = formData.get('office');
+  const age = Number(formData.get('age').trim());
+  const salary = Number(formData.get('salary').trim());
+  const office = formData.get('office').trim();
 
   if (!namee || !position || !age || !salary || !office) {
     // eslint-disable-next-line no-undef
