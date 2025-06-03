@@ -32,15 +32,15 @@ function showNotification(message, type = 'success') {
 // #endregion
 
 // #region clickSort
+// #region clickSort
 headers.forEach((header, columIndex) => {
   header.addEventListener('click', (e) => {
-    const originalRows = [...tbody.querySelectorAll('TH')];
+    const originalRows = [...tbody.querySelectorAll('tr')];
     const rows = [...originalRows];
 
     rows.sort((rowA, rowB) => {
       const firsttColum = rowA.children[columIndex].textContent.trim();
       const secondColum = rowB.children[columIndex].textContent.trim();
-
       const firstColumnWithoutSymbols = firsttColum.replace(/[$,]/g, '');
       const secondColumnWithoutSymbols = secondColum.replace(/[$,]/g, '');
 
@@ -59,10 +59,11 @@ headers.forEach((header, columIndex) => {
     if (isAlreadySorted) {
       rows.reverse();
     }
-
+    tbody.innerHTML = '';
     rows.forEach((row) => tbody.appendChild(row));
   });
 });
+
 // #endregion
 
 // #region newForm
@@ -87,10 +88,12 @@ form.innerHTML = `
     Office:
     <select name="office" data-qa="office">
       <option value="">Select office</option>
+      <option value="Singapore">Singapore</option>
       <option value="New York">New York</option>
       <option value="London">London</option>
       <option value="Tokyo">Tokyo</option>
-      <option value="Sydney">Sydney</option>
+      <option value="San Francisco">San Francisco</option>
+      <option value="Edinburgh">Edinburgh</option>
     </select>
   </label>
   <button type="submit">Отправить</button>
