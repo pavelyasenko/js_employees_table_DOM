@@ -19,19 +19,16 @@ function showNotification(message, type = 'success') {
   const text = document.createElement('span');
 
   text.textContent = message;
-
   notification.appendChild(title);
   notification.appendChild(text);
-
   document.body.appendChild(notification);
 
   setTimeout(() => {
     notification.remove();
   }, 3000);
 }
-// #endregion
 
-// #region clickSort
+// #endregion
 // #region clickSort
 headers.forEach((header, columIndex) => {
   header.addEventListener('click', (e) => {
@@ -59,13 +56,12 @@ headers.forEach((header, columIndex) => {
     if (isAlreadySorted) {
       rows.reverse();
     }
-    tbody.innerHTML = '';
+    // tbody.innerHTML = '';
     rows.forEach((row) => tbody.appendChild(row));
   });
 });
 
 // #endregion
-
 // #region newForm
 const form = document.createElement('form');
 
@@ -88,15 +84,15 @@ form.innerHTML = `
     Office:
     <select name="office" data-qa="office">
       <option value="">Select office</option>
-      <option value="Singapore">Singapore</option>
-      <option value="New York">New York</option>
-      <option value="London">London</option>
       <option value="Tokyo">Tokyo</option>
-      <option value="San Francisco">San Francisco</option>
+      <option value="Singapore">Singapore</option>
+      <option value="London">London</option>
+      <option value="New York">New York</option>
       <option value="Edinburgh">Edinburgh</option>
+      <option value="San Francisco">San Francisco</option>
     </select>
   </label>
-  <button type="submit">Отправить</button>
+  <button type="submit">Save to table</button>
 `;
 
 form.addEventListener('submit', (e) => {
@@ -135,29 +131,29 @@ form.addEventListener('submit', (e) => {
   newRow.innerHTML = `
     <td>${namee}</td>
     <td>${position}</td>
+    <td>${office}</td>
     <td>${age}</td>
     <td>$${salary.toLocaleString()}</td>
-    <td>${office}</td>
   `;
-
   tbody.appendChild(newRow);
-  // eslint-disable-next-line no-undef
   enableRowSelection();
-  // eslint-disable-next-line no-undef
   showNotification('Employee added successfully.', 'success');
   form.reset();
 });
-
 body.appendChild(form);
 // #endregion
+enableRowSelection();
 
-// #region rowSelection
-const tr = tbody.querySelectorAll('tr');
+function enableRowSelection() {
+  const tr = tbody.querySelectorAll('tr');
 
-tr.forEach((TrRow) => {
-  TrRow.addEventListener('click', () => {
-    tr.forEach((r) => r.classList.remove('active'));
-    TrRow.classList.add('active');
+  tr.forEach((TrRow) => {
+    TrRow.addEventListener('click', () => {
+      tr.forEach((r) => r.classList.remove('active'));
+      TrRow.classList.add('active');
+    });
   });
-});
+}
+// #region rowSelection
+// (removed)
 // #endregion
