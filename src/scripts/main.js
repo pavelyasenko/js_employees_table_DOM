@@ -36,10 +36,14 @@ headers.forEach((header, columIndex) => {
     const rows = [...originalRows];
 
     rows.sort((rowA, rowB) => {
-      const firsttColum = rowA.children[columIndex].textContent.trim();
+      const firstColumn = rowA.children[columIndex].textContent.trim();
       const secondColum = rowB.children[columIndex].textContent.trim();
-      const firstColumnWithoutSymbols = firsttColum.replace(/[$,]/g, '');
-      const secondColumnWithoutSymbols = secondColum.replace(/[$,]/g, '');
+      const firstColumnWithoutSymbols = parseFloat(
+        firstColumn.replace(/[$,]/g, ''),
+      );
+      const secondColumnWithoutSymbols = parseFloat(
+        secondColum.replace(/[$,]/g, ''),
+      );
 
       if (
         !isNaN(firstColumnWithoutSymbols) &&
@@ -47,7 +51,7 @@ headers.forEach((header, columIndex) => {
       ) {
         return firstColumnWithoutSymbols - secondColumnWithoutSymbols;
       } else {
-        return firsttColum.localeCompare(secondColum);
+        return firstColumn.localeCompare(secondColum);
       }
     });
 
@@ -133,8 +137,9 @@ form.addEventListener('submit', (e) => {
     <td>${position}</td>
     <td>${office}</td>
     <td>${age}</td>
-    <td>$${salary.toLocaleString()}</td>
+    <td>$${salary.toLocaleString('en-US')}</td>
   `;
+
   tbody.appendChild(newRow);
   enableRowSelection();
   showNotification('Employee added successfully.', 'success');
